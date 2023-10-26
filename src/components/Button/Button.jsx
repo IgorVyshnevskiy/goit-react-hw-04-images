@@ -1,4 +1,3 @@
-
 import css from './Button.module.css';
 
 const Button = ({ onLoadMoreButtonClick }) => {

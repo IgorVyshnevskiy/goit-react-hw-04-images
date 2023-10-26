@@ -1,45 +1,41 @@
-import React, { Component } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { ReactComponent as SearchIcon } from '../../icons/search.svg';
 
 import css from './Searchbar.module.css';
 
-class Searchbar extends Component {
-  state = {
-    image: '',
-  };
+const Searchbar = ({ onFormSubmit }) => {
+  const [image, setImage] = useState('');
 
-  hendelImagesChange = event => {
-    this.setState({ image: event.currentTarget.value.toLowerCase() });
+  const hendelImagesChange = event => {
+    setImage(event.currentTarget.value.toLowerCase());
   };
-  hendelSubmit = event => {
+  const hendelSubmit = event => {
     event.preventDefault();
-    if (this.state.image.trim() === '') {
+    if (image.trim() === '') {
       return toast.error('Please enter a name to search!');
     }
-    this.props.onFormSubmit(this.state.image);
-    this.setState({ image: '' });
+    onFormSubmit(image);
+    setImage('');
   };
-  render() {
-    return (
-      <header className={css.Searchbar}>
-        <form className={css.SearchForm} onSubmit={this.hendelSubmit}>
-          <button type="submit" className={css.SearchFormButton}>
-            <SearchIcon />
-            <span className={css.SearchFormButtonLabel}>Search</span>
-          </button>
+  return (
+    <header className={css.Searchbar}>
+      <form className={css.SearchForm} onSubmit={hendelSubmit}>
+        <button type="submit" className={css.SearchFormButton}>
+          <SearchIcon />
+          <span className={css.SearchFormButtonLabel}>Search</span>
+        </button>
 
-          <input
-            className={css.SearchFormInput}
-            type="text"
-            autoFocus
-            placeholder="Search images and photos"
-            onChange={this.hendelImagesChange}
-            value={this.state.image}
-          />
-        </form>
-      </header>
-    );
-  }
-}
+        <input
+          className={css.SearchFormInput}
+          type="text"
+          autoFocus
+          placeholder="Search images and photos"
+          onChange={hendelImagesChange}
+          value={image}
+        />
+      </form>
+    </header>
+  );
+};
 export default Searchbar;
