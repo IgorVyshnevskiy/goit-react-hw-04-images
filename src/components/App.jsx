@@ -3,8 +3,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as Scroll from 'react-scroll';
 
-import fetchImages from '../services/FetchImages'
-import useToggle from '../hooks/useToggle'
+import fetchImages from '../services/FetchImages';
+import useToggle from '../hooks/useToggle';
 
 import Searchbar from './SearchBar/SearchBar';
 import Button from './Button';
@@ -73,7 +73,7 @@ const App = () => {
 
   const LoadMoreButtonClick = () => {
     setPage(page + 1);
-    scrollToMoreBtn()
+    scrollToMoreBtn();
   };
 
   const scrollToMoreBtn = () => {
@@ -89,7 +89,9 @@ const App = () => {
       {status === statuss.IDLE && <Title />}
       {status === statuss.PENDING && <Loader />}
       {status === statuss.REJECTED && <ErrorMessage images={image} />}
-      {status === statuss.RESOLVE && <ImageGallery images={images} handleImgOpenClick={handleImgOpenClick}/>}
+      {status === statuss.RESOLVE && (
+        <ImageGallery images={images} handleImgOpenClick={handleImgOpenClick} />
+      )}
       {status === statuss.RESOLVE && page < countPages && (
         <Button onLoadMoreButtonClick={LoadMoreButtonClick} />
       )}
